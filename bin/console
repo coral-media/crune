@@ -1,0 +1,69 @@
+#!/usr/bin/env php
+<?php
+
+use App\Kernel;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\Dotenv\Dotenv;
+
+if (!is_file(dirname(__DIR__).'/vendor/autoload.php')) {
+    throw new LogicException('Composer autoload missing. Try running `composer update`.');
+}
+
+require_once dirname(__DIR__).'/vendor/autoload.php';
+
+if (!function_exists('tagged_iterator')) {
+    function tagged_iterator(
+            string $tag,
+            string $indexAttribute = null,
+            string $defaultIndexMethod = null,
+            string $defaultPriorityMethod = null): TaggedIteratorArgument
+    {
+        return new TaggedIteratorArgument(
+                $tag,
+                $indexAttribute,
+                $defaultIndexMethod,
+                false,
+                $defaultPriorityMethod
+        );
+    }
+}
+
+
+$containerBuilder = new ContainerBuilder();
+$loader = new YamlFileLoader($containerBuilder, new FileLocator(dirname(__DIR__).'/config'));
+try {
+    $loader->load('services.yaml');
+    $loader->load('parameters.yaml');
+} catch (Throwable $e) {
+    echo $e->getMessage() . "\n";
+    exit(Command::FAILURE);
+}
+
+$containerBuilder->registerForAutoconfiguration(Command::class)
+    ->addTag('console.command');
+
+$containerBuilder->register('kernel', Kernel::class)
+    ->setPublic(true)
+    ->setArguments(
+        [
+            tagged_iterator('console.command'),
+            $containerBuilder->getParameter('app_name'),
+            $containerBuilder->getParameter('app_version')
+        ]
+    );
+
+$dotEnv = new Dotenv();
+$dotEnv->bootEnv(dirname(__DIR__) . '/.env');
+
+$containerBuilder->compile(true);
+
+try {
+    exit($containerBuilder->get('kernel')->run());
+} catch (Throwable $error) {
+    echo $error->getMessage() . "\n";
+    exit(Command::FAILURE);
+}

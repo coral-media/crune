@@ -1,0 +1,15 @@
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/vendor/
+###< symfony/framework-bundle ###
+
+###> jetbrains/ide ###
+/.idea/
+###< jetbrains/ide ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###

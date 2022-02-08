@@ -1,0 +1,3 @@
+parameters:
+    app_name: '%env(resolve:APP_NAME)%'
+    app_version: '%env(APP_VERSION)%'

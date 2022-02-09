@@ -1,4 +1,7 @@
 # CRUNE
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/coral-media/crune)
+![SymfonyVersion](https://img.shields.io/badge/symfony%20version-%5E5.4-green)
+
 The **C**onsole **Run**time **E**nvironment. Built with [Symfony Components](https://symfony.com/components)
 
 Run sample command `php bin/console app:acme`, sourcecode

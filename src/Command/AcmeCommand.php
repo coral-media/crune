@@ -35,9 +35,10 @@ class AcmeCommand extends Command implements ContainerAwareInterface
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln(sprintf(
-            'Hello world %s from %s',
+            'Hello world %s from %s %s',
             $input->getArgument('name'),
-            $this->container->getParameter('app_name')
+            $this->container->getParameter('app_name'),
+            $this->container->getParameter('app_version')
         ));
 
         // return value is important when using CI, to fail the build when the command fails

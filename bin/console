@@ -6,6 +6,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -55,6 +56,8 @@ $containerBuilder->register('kernel', Kernel::class)
             $containerBuilder->getParameter('app_version')
         ]
     );
+
+$containerBuilder->setAlias(ContainerInterface::class, 'service_container');
 
 $dotEnv = new Dotenv();
 $dotEnv->bootEnv(dirname(__DIR__) . '/.env');

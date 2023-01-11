@@ -5,7 +5,6 @@ namespace App;
 
 
 use Symfony\Component\Console\Application;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class Kernel extends Application
 {

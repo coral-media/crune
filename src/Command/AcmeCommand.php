@@ -4,6 +4,7 @@
 namespace App\Command;
 
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,9 +12,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class AcmeCommand extends Command implements ContainerAwareInterface
+#[AsCommand(name: 'app:acme')]
+class AcmeCommand extends Command  implements ContainerAwareInterface
 {
-    protected static $defaultName = 'app:acme';
 
     protected ?ContainerInterface $container;
 

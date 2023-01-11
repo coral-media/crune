@@ -3,6 +3,7 @@
 /.env.local.php
 /.env.*.local
 /vendor/
+/var/
 ###< symfony/framework-bundle ###
 
 ###> jetbrains/ide ###

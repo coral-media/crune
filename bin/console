@@ -16,6 +16,9 @@ if (!is_file(dirname(__DIR__).'/vendor/autoload.php')) {
 
 require_once dirname(__DIR__).'/vendor/autoload.php';
 
+$dotEnv = new Dotenv();
+$dotEnv->bootEnv(dirname(__DIR__) . '/.env');
+
 if (!function_exists('tagged_iterator')) {
     function tagged_iterator(
             string $tag,
@@ -32,7 +35,6 @@ if (!function_exists('tagged_iterator')) {
         );
     }
 }
-
 
 $containerBuilder = new ContainerBuilder();
 $loader = new YamlFileLoader($containerBuilder, new FileLocator(dirname(__DIR__).'/config'));
@@ -53,14 +55,12 @@ $containerBuilder->register('kernel', Kernel::class)
         [
             tagged_iterator('console.command'),
             $containerBuilder->getParameter('app_name'),
-            $containerBuilder->getParameter('app_version')
+            $containerBuilder->getParameter('app_version'),
+            $_ENV['APP_ENV']
         ]
     );
 
 $containerBuilder->setAlias(ContainerInterface::class, 'service_container');
-
-$dotEnv = new Dotenv();
-$dotEnv->bootEnv(dirname(__DIR__) . '/.env');
 
 $containerBuilder->compile(true);
 

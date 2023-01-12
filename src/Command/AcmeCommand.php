@@ -9,14 +9,19 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 #[AsCommand(name: 'app:acme')]
-class AcmeCommand extends Command  implements ContainerAwareInterface
+class AcmeCommand extends Command
 {
+    protected string $appName;
+    protected string $appVersion;
 
-    protected ?ContainerInterface $container;
+    public function __construct(string $appName, string $appVersion, string $name = null)
+    {
+        $this->appName = $appName;
+        $this->appVersion = $appVersion;
+        parent::__construct($name);
+    }
 
     /**
      * In this method setup command, description, and its parameters
@@ -38,21 +43,10 @@ class AcmeCommand extends Command  implements ContainerAwareInterface
         $output->writeln(sprintf(
             'Hello world %s from %s %s',
             $input->getArgument('name'),
-            $this->container->getParameter('app_name'),
-            $this->container->getParameter('app_version')
+            $this->appName,
+            $this->appVersion
         ));
 
-        // return value is important when using CI, to fail the build when the command fails
-        // in case of fail: "return self::FAILURE;"
         return self::SUCCESS;
-    }
-
-    /**
-     * @required
-     * @param ContainerInterface|null $container
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
     }
 }

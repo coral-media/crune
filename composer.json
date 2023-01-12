@@ -4,7 +4,7 @@
     "keywords": ["cli", "console", "command", "cronjobs", "symfony"],
     "type": "project",
     "license": "MIT",
-    "version": "v0.1.3",
+    "version": "v0.1.4",
     "authors": [
         {
             "name": "Rafael Ernesto Espinosa Santiesteban",

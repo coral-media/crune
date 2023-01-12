@@ -1,6 +1,6 @@
 # CRUNE
 ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/coral-media/crune)
-![SymfonyVersion](https://img.shields.io/badge/symfony%20version-%5E5.4-green)
+![SymfonyVersion](https://img.shields.io/badge/symfony%20version-%5E6.2-green)
 
 The **C**onsole **Run**time **E**nvironment. Built with [Symfony Components](https://symfony.com/components)
 
@@ -31,3 +31,4 @@ Make sure the container is up and running
 - [symfony/yaml](https://symfony.com/components/Yaml)
 - [symfony/config](https://symfony.com/components/Config)
 - [symfony/dotenv](https://symfony.com/components/Dotenv)
+- [symfony/process](https://symfony.com/components/Process)

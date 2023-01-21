@@ -3,8 +3,8 @@ services:
         autowire: true
         autoconfigure: true
         bind:
-            $appName: '%app_name%'
-            $appVersion: '%app_version%'
+            $appName: '%app.name%'
+            $appVersion: '%app.version%'
 
     App\:
         resource: '../src/'

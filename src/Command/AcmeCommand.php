@@ -4,6 +4,7 @@
 namespace App\Command;
 
 
+use JetBrains\PhpStorm\NoReturn;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,8 +17,12 @@ class AcmeCommand extends Command
     protected string $appName;
     protected string $appVersion;
 
-    public function __construct(string $appName, string $appVersion, string $name = null)
-    {
+    #[NoReturn]
+    public function __construct(
+        string $appName,
+        string $appVersion,
+        string $name = null
+    ) {
         $this->appName = $appName;
         $this->appVersion = $appVersion;
         parent::__construct($name);

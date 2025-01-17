@@ -1,20 +1,18 @@
-version: '3.8'
-
 services:
-###< doctrine/doctrine-bundle ###
     php:
-        platform: linux/x86_64
+        platform: linux/amd64
         container_name: crune-php
         build:
             context: .
+            dockerfile: ./docker/php-fpm/Dockerfile
             args:
                 CRUNE_VERSION: ${CRUNE_VERSION:-}
                 SKELETON: ${SKELETON:-coral-media/crune}
                 STABILITY: ${STABILITY:-stable}
                 DEVELOPER_EMAIL: ${GIT_DEVELOPER_EMAIL:-developer@domain.com}
                 DEVELOPER_USER: ${GIT_DEVELOPER_EMAIL:-developer}
-            target: php
         ports:
-            - '59000:9000'
+            - '9000:9000'
         volumes:
             - ./:/srv/app:rw,cached
+            - ./docker/php-fpm/.ssh:/root/.ssh:rw,cached
